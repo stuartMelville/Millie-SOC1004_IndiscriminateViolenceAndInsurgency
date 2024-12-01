@@ -1,32 +1,3 @@
-getwd()
-options(max.print=999999)
-
-#### Load in the tidyverse
-library(tidyverse)
-
-
-#### Data 
-
-# Remember to check your working directory if needed using getwd() and setwd()
-
-# Read in the data
-chechen <- read.csv("./data/raw/chechen.csv")
-
-# check it
-glimpse(chechen)
-colnames(chechen)
-nrow(chechen)
-library(dplyr)
-class(chechen)
-chechen %>% 
-  arrange(desc(star)) %>% 
-  slice(1:10)
-star %>% 
-  arrange(star) %>% 
-  slice(2:10)
-
-top_n(star,-5,race)
-top_n(star,-5,pupilID)
 #############################################
 getwd()
 options(max.print=999999)
@@ -46,21 +17,22 @@ villagesRussiaAttacked <- chechen %>%
 
 nrow(villagesRussiaAttacked)
 count(villagesRussiaAttacked)
-
+numberOfVillagesRussiaAttacked <- nrow(villagesRussiaAttacked)
 ###################################
 # Part 2                          #
 # Number of villages Not attacked #
 ###################################
 villagesRussiaDidNotAttack <- chechen %>% 
   filter(preattack == 0 & postattack == 0)
-
 nrow(villagesRussiaDidNotAttack)
 count(villagesRussiaDidNotAttack)
 
-
-totalNumberOfVillages  <- villagesRussiaDidNotAttack + villagesRussiaDidNotAttack
+numberOfVillagesRussiaDidNotAttack <- nrow(villagesRussiaDidNotAttack)
 
 nrow(villagesRussiaDidNotAttack) + nrow(villagesRussiaAttacked) 
+numberOfVillagesInChechen <- nrow(chechen)
+sprintf("Out of %d villages, Russia attacked %d and did not attack %d.", nrow(chechen),nrow(villagesRussiaAttacked),  nrow(villagesRussiaDidNotAttack))
+sprintf("Out of %d villages, Russia attacked %d and did not attack %d.", numberOfVillagesInChechen,numberOfVillagesRussiaAttacked,  numberOfVillagesRussiaDidNotAttack)
 
 ##############################################################################
 # 1.2. Did Russian artillery result in a greater number of deaths in Groznyy #
@@ -92,3 +64,18 @@ median(chechen$deaths[chechen$groznyy == 1 & chechen$fire == 1 & chechen$deaths 
 # artilleryDeathsNotInGrozny R way 
 mean(chechen$deaths[chechen$groznyy == 0 & chechen$fire == 1 & chechen$deaths > 0], na.rm = T)
 median(chechen$deaths[chechen$groznyy == 0 & chechen$fire == 1 & chechen$deaths > 0], na.rm = T)
+
+if(meanArtilleryDeathsInGrozny > meanArtilleryDeathsNotInGrozny){
+  meanDeathsInGroznyyGreaterOrLesser <- "greater"
+}else{
+  meanDeathsInGroznyyGreaterOrLesser <- "lesser"  
+}
+if(medianArtilleryDeathsInGrozny > medianArtilleryDeathsNotInGrozny){
+  medianDeathsInGroznyyGreaterOrLesser <- "greater"
+}else{
+  medianDeathsInGroznyyGreaterOrLesser <- "lesser"  
+}
+sprintf("Based on the mean average, Russian artillery resulted in a %s number of Deaths in Groznyy (%f) compared to outside of Grozny (%f)", meanDeathsInGroznyyGreaterOrLesser,meanArtilleryDeathsInGrozny,meanArtilleryDeathsNotInGrozny)
+sprintf("and based on the median average, Russian artillery resulted in a %s number of Deaths in Groznyy (%f) compared to outside of Grozny (%f)", medianDeathsInGroznyyGreaterOrLesser,medianArtilleryDeathsInGrozny,medianArtilleryDeathsNotInGrozny)
+
+
