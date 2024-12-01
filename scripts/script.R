@@ -17,7 +17,7 @@ villagesRussiaAttacked <- chechen %>%
 
 nrow(villagesRussiaAttacked)
 count(villagesRussiaAttacked)
-numberOfVillagesRussiaAttacked <- nrow(villagesRussiaAttacked)
+
 
 ###################################
 # Part 2                          #
@@ -28,11 +28,10 @@ villagesRussiaDidNotAttack <- chechen %>%
 nrow(villagesRussiaDidNotAttack)
 count(villagesRussiaDidNotAttack)
 
+# 1.1 ANSWER
+numberOfVillagesRussiaAttacked <- nrow(villagesRussiaAttacked)
 numberOfVillagesRussiaDidNotAttack <- nrow(villagesRussiaDidNotAttack)
-
-nrow(villagesRussiaDidNotAttack) + nrow(villagesRussiaAttacked) 
 numberOfVillagesInChechen <- nrow(chechen)
-sprintf("Out of %d villages, Russia attacked %d and did not attack %d.", nrow(chechen),nrow(villagesRussiaAttacked),  nrow(villagesRussiaDidNotAttack))
 sprintf("Out of %d villages, Russia attacked %d and did not attack %d.", numberOfVillagesInChechen,numberOfVillagesRussiaAttacked,  numberOfVillagesRussiaDidNotAttack)
 rm(villagesRussiaAttacked)
 rm(numberOfVillagesRussiaAttacked)
@@ -65,6 +64,7 @@ median(chechen$deaths[chechen$groznyy == 1 & chechen$fire == 1 & chechen$deaths 
 mean(chechen$deaths[chechen$groznyy == 0 & chechen$fire == 1 & chechen$deaths > 0], na.rm = T)
 median(chechen$deaths[chechen$groznyy == 0 & chechen$fire == 1 & chechen$deaths > 0], na.rm = T)
 
+# 1.2 ANSWER
 # Function which returns "greater" or "lesser" based on two numbers
 greaterOrLesser <- function(first,second){
   if(first > second){
